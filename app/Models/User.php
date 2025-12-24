@@ -9,18 +9,16 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
+    protected $table = 'usuarios';
+
     protected $fillable = [
-        'name',
+        'pessoa_id',
+        'perfil_id',
         'email',
         'password',
+        'status',
     ];
 
     /**
@@ -45,4 +43,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function pessoa()
+    {
+        return $this->belongsTo(Pessoa::class);
+    }
+
+    public function perfil()
+    {
+        return $this->belongsTo(Perfil::class);
+    }
+
+
 }
